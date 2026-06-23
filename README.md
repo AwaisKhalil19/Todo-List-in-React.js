@@ -84,9 +84,9 @@ This project was built to practice:
 
 ## 👨‍💻 Author
 
-**Your Name**
+**Awais Khalil**
 
-GitHub: https://github.com/your-username
+GitHub: https://github.com/AwaisKhalil19
 
 ---
 
