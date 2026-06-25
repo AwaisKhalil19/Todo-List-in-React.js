@@ -29,20 +29,12 @@ src/
 └── index.css
 
 
-## 📸 Screenshot
-
-Add your project screenshot here.
-
-md
-![Todo List App](./screenshot.png)
-
-
 ## ⚙️ Installation
 
 1. Clone the repository
 
 bash
-git clone https://github.com/your-username/todo-list-app.git
+git clone https://github.com/AwaisKhalil19/todo-list-app.git
 
 
 2. Navigate to the project directory
