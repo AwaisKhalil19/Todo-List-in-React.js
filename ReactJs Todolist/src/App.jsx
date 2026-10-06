@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import Navbar from './components/Navbar'
-import { FaEdit } from "react-icons/fa";
+import { FaEdit, FaCheckSquare, FaRegSquare } from "react-icons/fa";
 import { MdDelete } from "react-icons/md";
 import { v4 as uuidv4 } from 'uuid';
 
@@ -73,32 +73,72 @@ function App() {
     <Navbar/>
     <div className='md:container mx-auto my-5 rounded-xl p-5 bg-[#1E293B] text-white min-h-[80vh] md:w-1/2'>
       <div className="mb-2">
-        <h2 className='text-2xl font-bold my-2'>Add a Todo</h2>
-        <input onChange={handleChange} onKeyDown={handleKeyDown} value={todo} type="text" placeholder='Create your own todo-list' className='w-full text-[#1E293B] border-solid border-2 border-white p-2 rounded-md text-black mt-2 active: text-white' />
+        <h1 className='text-3xl font-bold my-4 uppercase'>Manage your task</h1>
+        <input onChange={handleChange} onKeyDown={handleKeyDown} value={todo} type="text" placeholder='Add a new task...' className='w-full text-[#1E293B] border-solid border-2 border-white p-2 rounded-md text-black mt-2 active: text-white' />
         <button onClick={handleAdd} disabled={todo.length < 3} className='w-full bg-white text-blue cursor-pointer hover:bg-white px-6 py-2.5 text-md font-bold text-[#1E293B] rounded-md my-4'>Add</button>
       </div>
-      <input onChange={toggleFinished} type="checkbox" checked={showFinished} className='mr-2 my-6' />Show Finished
+      <button
+  onClick={toggleFinished}
+  className={`mr-2 my-6 text-xl align-middle ${
+    showFinished ? "text-yellow-400" : "text-white"
+  }`}
+>
+  {showFinished ? <FaCheckSquare /> : <FaRegSquare />}
+</button>
+
+<span>Show Finished</span>
       <h2 className='text-2xl font-bold'>Your Todos</h2>
       <div className="todos">
         {todos.length === 0 && <div className='text-center text-lg font-bold my-5'>No Todos Added</div>}
-        {todos.map((item => (
-        
-         (showFinished || !item.isCompleted) && <div key={item.id} className="todo flex w-2/4 justify-between my-4">
-            <div className="flex gap-5 mt-1">
-          <input name={item.id} onChange={handleCheckbox} type="checkbox" checked={item.isCompleted}/>
-          <div className={item.isCompleted ? "line-through":""}>{item.todo}</div>
-            </div>
-            <div className="button">
-              {!item.isCompleted &&  (
-              <button onClick={(e)=>handleEdit(e, item.id)} className='bg-white text-blue cursor-pointer hover:bg-white px-2 py-1 text-md font-bold text-[#1E293B] rounded-md mx-1'><FaEdit />
+        {todos.map((item) => (
+  (showFinished || !item.isCompleted) && (
+    <div
+      key={item.id}
+      className="todo flex w-full items-center justify-between gap-3 my-4"
+    >
+      <div className="flex items-center gap-3 min-w-0 flex-nowrap">
+      <button
+  onClick={() => handleCheckbox({
+    target: { name: item.id }
+  })}
+  className={`text-xl shrink-0 ${
+    item.isCompleted ? "text-yellow-400" : "text-white"
+  }`}
+>
+  {item.isCompleted ? <FaCheckSquare /> : <FaRegSquare />}
 </button>
-              )}
-              {item.isCompleted && (
-                <button onClick={(e) => {handleDelete(e, item.id)}} className='bg-white text-blue cursor-pointer hover:bg-white px-2 py-1 text-md font-bold text-[#1E293B] rounded-md mx-1'><MdDelete /></button>
-              )}
-            </div>
+
+        <div
+          className={`whitespace-nowrap ${
+            item.isCompleted ? "line-through" : ""
+          }`}
+        >
+          {item.todo}
         </div>
-      )))}
+      </div>
+
+      <div className="button shrink-0">
+        {!item.isCompleted && (
+          <button
+            onClick={(e) => handleEdit(e, item.id)}
+            className="bg-white text-[#1E293B] cursor-pointer px-2 py-1 text-md font-bold rounded-md mx-1"
+          >
+            <FaEdit />
+          </button>
+        )}
+
+        {item.isCompleted && (
+          <button
+            onClick={(e) => handleDelete(e, item.id)}
+            className="bg-white text-[#1E293B] cursor-pointer px-2 py-1 text-md font-bold rounded-md mx-1"
+          >
+            <MdDelete />
+          </button>
+        )}
+      </div>
+    </div>
+  )
+))}
       </div>
     </div>
     </>
